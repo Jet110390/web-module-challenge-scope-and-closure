@@ -31,27 +31,32 @@ function processFirstItem(stringList, callback) {
  * counter1's variable is inside the function scope wile counter2's variable is in the global scope.
  * 
  * 2. Which of the two uses a closure? How can you tell?
- * counter1
+ * 
+ * counter1 has a closure because you have to return outside of the count to outside of the "counter function" so 
+ * that the "countermaker" can access it.
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- * counter2 to reuse count if var has one use put it in funct
+ * 
+ * You could use counter2 to reuse in your browser but if count has only one use you would use counter1
+ * because its within the function and once youre done with the function you wouldnt need the variable anymore.
 */
 
 // counter1 code
-// function counterMaker() {
-//   let count = 0;
-//   return function counter() {
-//    return count++;
-//   }
-// }
+function counterMaker() {
+  let count = 0;
+  return function counter() {
+   return count++;
+  }
+}
 
-// const counter1 = counterMaker();
+const counter1 = counterMaker();
 
-// // counter2 code
-// let count = 0;
+// counter2 code
+let count = 0;
 
-// function counter2() {
-//   return count++;
-// }
+function counter2() {
+  return count++;
+}
 
 
 /* Task 2: inning() 
