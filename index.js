@@ -31,38 +31,39 @@ function processFirstItem(stringList, callback) {
  * counter1's variable is inside the function scope wile counter2's variable is in the global scope.
  * 
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ * counter1
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ * counter2 to reuse count if var has one use put it in funct
 */
 
 // counter1 code
-function counterMaker() {
-  let count = 0;
-  return function counter() {
-   return count++;
-  }
-}
+// function counterMaker() {
+//   let count = 0;
+//   return function counter() {
+//    return count++;
+//   }
+// }
 
-const counter1 = counterMaker();
+// const counter1 = counterMaker();
 
-// counter2 code
-let count = 0;
+// // counter2 code
+// let count = 0;
 
-function counter2() {
-  return count++;
-}
+// function counter2() {
+//   return count++;
+// }
 
 
 /* Task 2: inning() 
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
+function inning(){
 
-    /*Code Here*/
+    return(Math.round(Math.random()*2))
 
 }
+console.log("scored "+inning()+" points");
 
 /* Task 3: finalScore()
 
@@ -78,12 +79,19 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+function finalScore(callback,numberOfInnings){
+   let home=0;
+   let away=0;
+  for(i = 0; i < numberOfInnings; i++){
+   home += inning();
+   away += inning();
+  };
+  return {
+    "Home":home,
+    "Away":away
+  };
 }
-
+console.log(finalScore(inning,9));
 /* Task 4: 
 
 Create a function called `scoreboard` that accepts the following parameters: 
@@ -104,9 +112,20 @@ and returns the score at each pont in the game, like so:
 9th inning: 6 - 10
 
 Final Score: 6 - 10 */
-
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function totalScore(scores){
+return scores.reduce((totalScore,score)=>totalScore+score,0)
 }
+function scoreboard(inning,numberOfInnings) {
+const homeTeam=[];
+const awayTeam=[];
+
+for(let i=1; i<=numberOfInnings; ++i){
+  homeTeam.push(inning())
+  awayTeam.push(inning())
+}
+return `Final Score: ${totalScore(homeTeam)} - ${totalScore(awayTeam)}`;
+}
+
+console.log(scoreboard(inning,9));
 
 
